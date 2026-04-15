@@ -11,11 +11,11 @@ export function BrandLogo({
 
   return (
     <div className={cn("flex items-center gap-4", className)}>
-      <div className="shrink-0 overflow-hidden rounded-full bg-white shadow-sm">
+      <div className="shrink-0">
         <img
           src="/jsd-logo.jpg"
           alt="Logótipo da JSD"
-          className={cn("h-16 w-16 object-cover sm:h-20 sm:w-20", imageClassName)}
+          className={cn("h-16 w-auto object-contain sm:h-20", imageClassName)}
         />
       </div>
 

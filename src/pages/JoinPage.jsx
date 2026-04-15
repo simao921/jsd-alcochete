@@ -140,7 +140,7 @@ export function JoinPage() {
                 <img
                   src="/jsd-logo.jpg"
                   alt="Logótipo JSD"
-                  className="w-48 h-48 sm:w-56 sm:h-56 shrink-0 rounded-full object-cover shadow-md"
+                  className="w-48 h-auto sm:w-56 shrink-0 object-contain"
                 />
               </div>
             </div>
