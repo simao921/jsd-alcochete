@@ -1,4 +1,4 @@
--- Eliminar Tabelas Existentes se já criadas
+-- Apagar as tabelas antigas se existirem
 drop table if exists news;
 drop table if exists events;
 drop table if exists team;
@@ -12,7 +12,9 @@ create table news (
   excerpt text not null,
   content text not null,
   category text not null,
-  "publishedAt" timestamp with time zone not null,
+  author text,
+  featured boolean default false,
+  "publishedAt" timestamp with time zone,
   "createdAt" timestamp with time zone default now()
 );
 
@@ -23,6 +25,10 @@ create table events (
   date timestamp with time zone not null,
   location text not null,
   category text not null,
+  summary text,
+  status text,
+  capacity integer,
+  featured boolean default false,
   "createdAt" timestamp with time zone default now()
 );
 
@@ -31,7 +37,10 @@ create table team (
   id uuid default gen_random_uuid() primary key,
   name text not null,
   role text not null,
-  image text,
+  "group" text,
+  email text,
+  photo text,
+  bio text,
   "createdAt" timestamp with time zone default now()
 );
 
@@ -39,6 +48,9 @@ create table team (
 create table members (
   id uuid default gen_random_uuid() primary key,
   name text not null,
+  email text not null,
+  password text,
+  motivation text,
   role text not null,
   age integer,
   points integer,
@@ -74,9 +86,7 @@ create table join_requests (
   "createdAt" timestamp with time zone default now()
 );
 
--- CONFIGURAÇÃO DE SEGURANÇA BÁSICA (RLS)
--- Como não usas contas com password para o backend atualmente (o sistema Admin está por bypass mágico), vamos desativar a restrição de escrita temporariamente para o site funcionar de qualquer lado. Desativa com moderação em projetos que não sejam públicos.
-
+-- DESATIVAR SEGURANÇAS DE ESCRITA TEMPORÁRIAS PARA DEIXAR ADMIN PAGE FLUIR
 alter table news disable row level security;
 alter table events disable row level security;
 alter table team disable row level security;
