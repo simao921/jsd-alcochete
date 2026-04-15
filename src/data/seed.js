@@ -41,9 +41,8 @@ export const navigationLinks = [
 ];
 
 export const socialLinks = [
-  { label: "Instagram", href: "https://instagram.com/jsd" },
-  { label: "Facebook", href: "https://facebook.com/jsd" },
-  { label: "TikTok", href: "https://tiktok.com/@jsd" }
+  { label: "Facebook", href: "https://www.facebook.com/jsd.alcochete/", icon: "facebook" },
+  { label: "Instagram", href: "https://www.instagram.com/jsd.alcochete/", icon: "instagram" }
 ];
 
 export const seedData = {
