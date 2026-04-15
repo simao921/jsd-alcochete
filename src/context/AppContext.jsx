@@ -84,11 +84,14 @@ export function AppProvider({ children }) {
     }
   };
 
-  // -- EVENTS --
   const createEvent = async (payload) => {
     const item = { ...payload };
     const { data, error } = await supabase.from("events").insert(item).select().single();
-    if (error) return null;
+    if (error) { 
+      pushNotification("Erro da BD: " + error.message, "error"); 
+      alert("ERRO SUPABASE: " + error.message);
+      return null; 
+    }
 
     setEvents((current) => sortContent([data, ...current], "date"));
     pushNotification("Evento criado com sucesso.", "success");
