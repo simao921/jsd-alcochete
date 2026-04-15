@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply min-h-screen bg-jsd-light font-sans text-jsd-black transition-colors duration-300 dark:bg-jsd-blue-dark dark:text-jsd-white;
+    background-image: linear-gradient(180deg, rgba(255, 248, 239, 0.98) 0%, rgba(245, 245, 245, 1) 100%);
+  }
+
+  ::selection {
+    @apply bg-jsd-orange text-jsd-black;
+  }
+}
+
+@layer components {
+  .shell-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .surface-panel {
+    @apply rounded-[1.75rem] border border-jsd-orange/10 bg-white shadow-panel dark:border-white/10 dark:bg-white/5;
+  }
+
+  .section-shell {
+    @apply shell-container py-16 md:py-20;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center rounded-full border border-jsd-orange/25 bg-[#fff4e1] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange;
+  }
+
+  .headline {
+    @apply font-display text-4xl font-bold tracking-tight text-jsd-blue-dark sm:text-5xl lg:text-6xl dark:text-white;
+  }
+
+  .copy {
+    @apply text-base leading-8 text-jsd-black/75 dark:text-white/70;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-jsd-orange px-6 py-3 text-sm font-semibold text-jsd-black transition duration-300 hover:-translate-y-0.5 hover:shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-jsd-orange/20 bg-white px-6 py-3 text-sm font-semibold text-jsd-blue-dark transition duration-300 hover:-translate-y-0.5 hover:bg-[#fff8ef] dark:border-white/15 dark:bg-white/5 dark:text-white;
+  }
+
+  .chip {
+    @apply rounded-full border border-jsd-orange/15 px-4 py-2 text-sm font-medium text-jsd-blue-dark transition dark:border-white/10 dark:text-white/90;
+  }
+
+  .chip-active {
+    @apply bg-jsd-blue text-white dark:bg-jsd-orange dark:text-jsd-black;
+  }
+
+  .field {
+    @apply space-y-2;
+  }
+
+  .label {
+    @apply text-sm font-semibold text-jsd-blue-dark dark:text-white;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border border-jsd-orange/15 bg-white px-4 py-3 text-sm text-jsd-black outline-none transition focus:border-jsd-orange focus:ring-4 focus:ring-jsd-orange/20 dark:border-white/10 dark:bg-white/5 dark:text-white;
+  }
+
+  .textarea {
+    @apply input min-h-32 resize-none;
+  }
+
+  .kicker-grid {
+    background-size: 32px 32px;
+    @apply bg-grid-light dark:bg-grid-dark;
+  }
+
+  .reveal {
+    @apply translate-y-8 opacity-0 transition-all duration-700;
+  }
+
+  .reveal-visible {
+    @apply translate-y-0 opacity-100;
+  }
+}
