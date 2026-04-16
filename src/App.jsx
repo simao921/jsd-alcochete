@@ -10,13 +10,14 @@ import { ADMIN_SECRET_PATH, isAdminShortcutUnlocked, unlockAdminShortcut } from 
 import { AboutPage } from "./pages/AboutPage";
 import { AdminPage } from "./pages/AdminPage";
 import { DashboardPage } from "./pages/DashboardPage";
+import { EstruturasPage } from "./pages/EstruturasPage";
 import { EventsPage } from "./pages/EventsPage";
 import { HomePage } from "./pages/HomePage";
 import { JoinPage } from "./pages/JoinPage";
 import { NewsPage } from "./pages/NewsPage";
 import { NewsArticlePage } from "./pages/NewsArticlePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { TeamPage } from "./pages/TeamPage";
+import { OrgaosPage } from "./pages/OrgaosPage";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -103,7 +104,8 @@ export default function App() {
         <Route element={<PublicShell />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/sobre" element={<AboutPage />} />
-          <Route path="/equipa" element={<TeamPage />} />
+          <Route path="/orgaos" element={<OrgaosPage />} />
+          <Route path="/estruturas" element={<EstruturasPage />} />
           <Route path="/noticias" element={<NewsPage />} />
           <Route path="/noticias/:id" element={<NewsArticlePage />} />
           <Route path="/eventos" element={<EventsPage />} />

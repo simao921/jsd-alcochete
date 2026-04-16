@@ -5,12 +5,7 @@ import { Card } from "../components/Card";
 import { ScrollReveal } from "../components/ScrollReveal";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 
-const sectionLinks = [
-  { href: "#sobre-nos", label: "Sobre Nós" },
-  { href: "#a-nossa-historia", label: "A Nossa História" },
-  { href: "#os-nossos-orgaos", label: "Os Nossos Órgãos" },
-  { href: "#as-nossas-estruturas", label: "As Nossas Estruturas" }
-];
+
 
 export function AboutPage() {
   useDocumentMeta({
@@ -32,12 +27,14 @@ export function AboutPage() {
                 Somos a juventude do PSD, mas acima de tudo, uma força de mudança. Trabalhamos lado a lado com os jovens do concelho para propor melhorias, exigir mais e preparar uma nova geração de líderes locais.
               </p>
             </div>
+            
             <div className="flex flex-wrap gap-3">
-              {sectionLinks.map((item) => (
-                <a key={item.href} href={item.href} className="btn-secondary">
-                  {item.label}
-                </a>
-              ))}
+              <Link to="/orgaos" className="btn-secondary group">
+                Conhecer a Equipa <span className="ml-2 group-hover:translate-x-1 transition-transform">-&gt;</span>
+              </Link>
+              <Link to="/estruturas" className="btn-secondary group">
+                As Nossas Estruturas <span className="ml-2 group-hover:translate-x-1 transition-transform">-&gt;</span>
+              </Link>
             </div>
           </ScrollReveal>
 
@@ -64,69 +61,24 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="section-shell pt-8">
+      <section className="section-shell pt-10 pb-20">
         <ScrollReveal>
-          <Card className="overflow-hidden p-0">
-            <div className="grid gap-0 lg:grid-cols-[320px_1fr]">
-              <div className="border-b border-jsd-orange/10 bg-[#fff8ef] p-6 lg:border-b-0 lg:border-r">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-jsd-orange">Menu institucional</p>
-                <div className="mt-5 grid gap-2">
-                  {sectionLinks.map((item) => (
-                    <a key={item.href} href={item.href} className="rounded-2xl bg-white px-4 py-4 text-sm font-semibold text-jsd-blue-dark transition hover:bg-jsd-orange hover:text-white">
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
+          <Card className="p-10 lg:p-16 border border-black/5 bg-white rounded-[2.5rem] shadow-sm">
+            <div className="grid gap-16 lg:grid-cols-2">
+              <div className="space-y-6">
+                <p className="eyebrow">Sobre Nós</p>
+                <h2 className="font-display text-4xl font-bold text-jsd-blue-dark">Mais que um partido, uma causa</h2>
+                <p className="copy text-lg leading-relaxed">
+                  A JSD defende a liberdade, a oportunidade igual para todos e o mérito. O nosso objetivo em Alcochete é garantir que estas palavras saem do papel e se tornam em respostas aos problemas práticos: da habitação ao emprego, passando pela cultura e pelo desporto.
+                </p>
               </div>
 
-              <div className="p-6 md:p-8 lg:p-10">
-                <div id="sobre-nos" className="scroll-mt-28 space-y-4 border-b border-jsd-orange/10 pb-10">
-                  <p className="eyebrow">Sobre Nós</p>
-                  <h2 className="font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Mais que um partido, uma causa</h2>
-                  <p className="copy">
-                    A JSD defende a liberdade, a oportunidade igual para todos e o mérito. O nosso objetivo em Alcochete é garantir que estas palavras saem do papel e se tornam em respostas aos problemas práticos: da habitação ao emprego, passando pela cultura e pelo desporto.
-                  </p>
-                </div>
-
-                <div id="a-nossa-historia" className="scroll-mt-28 space-y-4 border-b border-jsd-orange/10 py-10">
-                  <p className="eyebrow">A Nossa História</p>
-                  <h2 className="font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Legado e irreverência</h2>
-                  <p className="copy">
-                    A JSD acompanhou a democracia e sempre esteve na linha da frente a quebrar tabus e a lutar pelo que parece impossível. O núcleo de Alcochete honra esse legado, misturando a experiência de quem já fez com a urgência de agir da nossa geração.
-                  </p>
-                </div>
-
-                <div id="os-nossos-orgaos" className="scroll-mt-28 space-y-4 border-b border-jsd-orange/10 py-10">
-                  <p className="eyebrow">Os Nossos Órgãos</p>
-                  <h2 className="font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">A equipa no terreno</h2>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <Card className="h-full !rounded-[1.5rem] bg-[#f0ece5]">
-                      <h3 className="font-display text-2xl font-bold text-jsd-blue-dark">Comissão Política</h3>
-                      <p className="mt-3 text-sm leading-7 text-jsd-black/72">
-                        Responsável pela visão estratégica, agenda local, comunicação pública, mobilização e execução política do núcleo.
-                      </p>
-                    </Card>
-                    <Card className="h-full !rounded-[1.5rem] bg-[#f0ece5]">
-                      <h3 className="font-display text-2xl font-bold text-jsd-blue-dark">Mesa do Plenário</h3>
-                      <p className="mt-3 text-sm leading-7 text-jsd-black/72">
-                        Garante que todos têm voz, assegurando o debate aberto, democrático e saudável entre todos os membros.
-                      </p>
-                    </Card>
-                  </div>
-                </div>
-
-                <div id="as-nossas-estruturas" className="scroll-mt-28 space-y-4 pt-10">
-                  <p className="eyebrow">As Nossas Estruturas</p>
-                  <h2 className="font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Muito mais que uma sede partidária</h2>
-                  <p className="copy">
-                    A JSD de Alcochete é um conjunto de pessoas inquietas, dedicadas a encontrar soluções para a nossa geração. Organizamos atividades culturais, desportivas e cívicas, provando que a política faz-se de várias maneiras e em contacto com a vida real. Falta cá a tua energia.
-                  </p>
-                  <div className="pt-4">
-                    <Link to="/junta-te" className="btn-primary">
-                      Tornar Militante
-                    </Link>
-                  </div>
-                </div>
+              <div className="space-y-6">
+                <p className="eyebrow">A Nossa História</p>
+                <h2 className="font-display text-4xl font-bold text-jsd-blue-dark">Legado e irreverência</h2>
+                <p className="copy text-lg leading-relaxed">
+                  A JSD acompanhou a democracia e sempre esteve na linha da frente a quebrar tabus e a lutar pelo que parece impossível. O núcleo local honra esse enorme legado histórico ao misturar a experiência autárquica de quem já o fez com a urgência e energia jovem de intervir no terreno da nossa região.
+                </p>
               </div>
             </div>
           </Card>

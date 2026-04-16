@@ -12,10 +12,9 @@ export function Navbar() {
   const { pathname } = useLocation();
   const { currentUser, isAuthenticated, logout } = useAuth();
   const aboutLinks = [
-    { href: "/sobre#sobre-nos", label: "Sobre Nós" },
-    { href: "/sobre#a-nossa-historia", label: "A Nossa História" },
-    { href: "/sobre#os-nossos-orgaos", label: "Os Nossos Órgãos" },
-    { href: "/sobre#as-nossas-estruturas", label: "As Nossas Estruturas" }
+    { href: "/sobre", label: "Sobre Nós & História" },
+    { href: "/orgaos", label: "Os Nossos Órgãos" },
+    { href: "/estruturas", label: "As Nossas Estruturas" }
   ];
   const mainLinks = navigationLinks.filter((item) => item.to !== "/sobre");
   const homeLink = mainLinks.find((item) => item.to === "/");
