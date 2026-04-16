@@ -253,22 +253,22 @@ export function AdminPage() {
               </form>
 
               <div className="grid gap-4">
-                {events.map((item) => (
-                  <div key={item.id} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                {Array.isArray(events) && events.map((item) => (
+                  <div key={item?.id || Math.random()} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="space-y-2">
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{item.status}</p>
-                        <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{item.title}</h3>
-                        <p className="text-sm text-jsd-black/65 dark:text-white/65">{formatDateTime(item.date)} • {item.location}</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{item?.status || "S/ Estado"}</p>
+                        <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{item?.title || "Sem Título"}</h3>
+                        <p className="text-sm text-jsd-black/65 dark:text-white/65">{formatDateTime(item?.date)} • {item?.location || "Local não definido"}</p>
                       </div>
                       <div className="flex gap-2">
-                        <button type="button" className="btn-secondary" onClick={() => { setEventForm({ ...item, date: item.date && typeof item.date === 'string' ? item.date.slice(0, 16) : "" }); setEditingIds((current) => ({ ...current, event: item.id })); }}>Editar</button>
-                        <button type="button" className="rounded-full bg-red-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-600" onClick={() => deleteEvent(item.id)}>Eliminar</button>
+                        <button type="button" className="btn-secondary" onClick={() => { setEventForm({ ...(item || {}), date: item?.date && typeof item.date === 'string' ? item.date.slice(0, 16) : "" }); setEditingIds((current) => ({ ...current, event: item?.id })); }}>Editar</button>
+                        <button type="button" className="rounded-full bg-red-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-600" onClick={() => deleteEvent(item?.id)}>Eliminar</button>
                       </div>
                     </div>
                   </div>
                 ))}
-                {events.length === 0 && <p className="text-sm text-jsd-black/50 p-4">Sem agenda configurada. Adiciona eventos para aparecerem no calendário.</p>}
+                {(!events || events.length === 0) && <p className="text-sm text-jsd-black/50 p-4">Sem agenda configurada. Adiciona eventos para aparecerem no calendário.</p>}
               </div>
             </Card>
           </ScrollReveal>
