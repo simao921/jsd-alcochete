@@ -26,7 +26,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/5 bg-white/85 backdrop-blur-xl dark:border-white/5 dark:bg-jsd-blue-dark/85">
+    <header className="sticky top-0 z-40 border-b-[3px] border-jsd-orange/80 bg-white/85 backdrop-blur-xl dark:border-white/5 dark:bg-jsd-blue-dark/85">
       <div className="shell-container flex h-20 items-center justify-between gap-6">
         <Link to="/" className="text-jsd-blue-dark dark:text-white">
           <BrandLogo imageClassName="h-10 w-10 sm:h-12 sm:w-12 shadow-none" textTone="dark" />

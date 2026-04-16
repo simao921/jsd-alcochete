@@ -99,11 +99,11 @@ export function HomePage() {
                     <span className="text-jsd-orange font-black text-2xl leading-none">{getDay(event.date)}</span>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-jsd-black/60 mt-1">{getMonth(event.date)}</span>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-display text-xl font-bold text-jsd-blue-dark leading-tight">{event.title}</h3>
-                    <div className="flex items-center gap-2 mt-2 text-xs font-semibold text-jsd-black/50 whitespace-nowrap">
-                       <span className="uppercase tracking-wider">{event.category}</span>
-                       <span>•</span>
+                  <div className="flex-1 overflow-hidden">
+                    <h3 className="font-display text-xl font-bold text-jsd-blue-dark leading-tight line-clamp-2">{event.title}</h3>
+                    <div className="flex items-center gap-2 mt-2 text-xs font-semibold text-jsd-black/50 whitespace-nowrap overflow-hidden">
+                       <span className="uppercase tracking-wider flex-shrink-0">{event.category}</span>
+                       <span className="flex-shrink-0">•</span>
                        <span className="truncate">📍 {event.location}</span>
                     </div>
                   </div>

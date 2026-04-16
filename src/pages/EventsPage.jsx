@@ -24,9 +24,9 @@ export function EventsPage() {
       const matchesStatus = activeStatus === "Todos" || event.status === activeStatus;
       const matchesSearch =
         !query ||
-        normaliseText(event.title).includes(query) ||
-        normaliseText(event.summary).includes(query) ||
-        normaliseText(event.location).includes(query);
+        (event.title && normaliseText(event.title).includes(query)) ||
+        (event.summary && normaliseText(event.summary).includes(query)) ||
+        (event.location && normaliseText(event.location).includes(query));
 
       return matchesStatus && matchesSearch;
     });
@@ -93,6 +93,11 @@ export function EventsPage() {
               />
             </ScrollReveal>
           ))}
+          {filteredEvents.length === 0 && (
+            <div className="col-span-full rounded-[1.5rem] bg-white p-10 text-center shadow-sm">
+              <p className="text-lg font-medium text-jsd-black/60">Não foram encontrados eventos na agenda com este critério.</p>
+            </div>
+          )}
         </div>
       </section>
     </>
