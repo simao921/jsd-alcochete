@@ -34,10 +34,19 @@ export const formatDateTime = (value) => {
   if (!value) return "S/ Data";
   const d = new Date(value);
   if (isNaN(d.valueOf())) return "Data inválida";
-  return new Intl.DateTimeFormat("pt-PT", {
-    dateStyle: "medium",
-    timeStyle: "short"
-  }).format(d);
+  
+  try {
+    return new Intl.DateTimeFormat("pt-PT", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(d);
+  } catch (err) {
+    // Ultimate fallback for very restricted browsers
+    return d.toLocaleString("pt-PT").slice(0, 16);
+  }
 };
 
 export const sortByNewest = (items, key) =>
