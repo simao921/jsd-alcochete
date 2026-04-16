@@ -11,29 +11,20 @@ export function DashboardLayout({ children }) {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <section className="section-shell pb-8">
-        <div className="surface-panel overflow-hidden border-jsd-orange/12 p-0">
-          <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div className="space-y-4 bg-jsd-orange p-8 text-white">
-              <BrandLogo textTone="light" imageClassName="h-14 w-14 sm:h-16 sm:w-16" />
+      <section className="border-b border-black/5 bg-white shadow-sm dark:border-white/5 dark:bg-jsd-blue-dark">
+        <div className="shell-container flex flex-col md:flex-row md:items-center justify-between gap-6 py-8">
+           <div className="flex items-center gap-5">
+              <BrandLogo imageClassName="h-10 w-10 sm:h-12 sm:w-12" textTone="dark" />
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/72">Área reservada</p>
-                <h1 className="mt-3 font-display text-4xl font-bold">
-                  {currentUser ? `Olá, ${currentUser.name.split(" ")[0]}.` : "A tua área política digital."}
+                <p className="text-[10px] font-bold uppercase tracking-widest text-jsd-orange">JSD Dashboard</p>
+                <h1 className="mt-1 font-display text-2xl font-black text-jsd-blue-dark dark:text-white">
+                  {currentUser ? `Bem-vindo, ${currentUser.name.split(" ")[0]}` : "Área Reservada"}
                 </h1>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-white/78">
-                  Gestão de participação, atividade e operação interna com linguagem visual mais institucional.
-                </p>
               </div>
-            </div>
-
-            <div className="flex flex-wrap gap-3 p-8">
-               {/* Menu interior limpo, focado só no admin */}
-            </div>
-          </div>
+           </div>
         </div>
       </section>
-      <main className="shell-container pb-20">{children ?? <Outlet />}</main>
+      <main className="shell-container pt-8 pb-20">{children ?? <Outlet />}</main>
     </div>
   );
 }

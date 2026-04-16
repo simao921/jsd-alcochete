@@ -163,7 +163,7 @@ export function AdminPage() {
       <div className="space-y-6">
         {activeSection === "news" && (
           <ScrollReveal>
-            <Card className="space-y-6 border-jsd-orange/12">
+            <Card className="space-y-8 border-black/5 shadow-md p-8 lg:p-10">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="eyebrow">Gestão editorial</p>
@@ -195,8 +195,8 @@ export function AdminPage() {
 
               <div className="grid gap-4">
                 {news.map((article) => (
-                  <div key={article.id} className="rounded-[1.5rem] border border-jsd-orange/10 bg-[#fff8ef] p-4 dark:border-white/10 dark:bg-white/5">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div key={article.id} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="space-y-2">
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{article.category}</p>
                         <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{article.title}</h3>
@@ -217,7 +217,7 @@ export function AdminPage() {
 
         {activeSection === "events" && (
           <ScrollReveal>
-            <Card className="space-y-6 border-jsd-orange/12">
+            <Card className="space-y-8 border-black/5 shadow-md p-8 lg:p-10">
               <div>
                 <p className="eyebrow">Gestão de agenda</p>
                 <h2 className="mt-4 font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Criar e gerir eventos</h2>
@@ -254,8 +254,8 @@ export function AdminPage() {
 
               <div className="grid gap-4">
                 {events.map((item) => (
-                  <div key={item.id} className="rounded-[1.5rem] border border-jsd-orange/10 bg-[#fff8ef] p-4 dark:border-white/10 dark:bg-white/5">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div key={item.id} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="space-y-2">
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{item.status}</p>
                         <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{item.title}</h3>
@@ -276,7 +276,7 @@ export function AdminPage() {
 
         {activeSection === "team" && (
           <ScrollReveal>
-            <Card className="space-y-6 border-jsd-orange/12">
+            <Card className="space-y-8 border-black/5 shadow-md p-8 lg:p-10">
               <div>
                 <p className="eyebrow">Estrutura política</p>
                 <h2 className="mt-4 font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Editar equipa</h2>
@@ -301,8 +301,8 @@ export function AdminPage() {
 
               <div className="grid gap-4">
                 {team.map((item) => (
-                  <div key={item.id} className="rounded-[1.5rem] border border-jsd-orange/10 bg-[#fff8ef] p-4 dark:border-white/10 dark:bg-white/5">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div key={item.id} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="space-y-2">
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{item.group}</p>
                         <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{item.name}</h3>
@@ -323,7 +323,7 @@ export function AdminPage() {
 
         {activeSection === "members" && (
           <ScrollReveal>
-            <Card className="space-y-6 border-jsd-orange/12">
+            <Card className="space-y-8 border-black/5 shadow-md p-8 lg:p-10">
               <div>
                 <p className="eyebrow">Base de membros</p>
                 <h2 className="mt-4 font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Ver e gerir membros</h2>
@@ -351,8 +351,8 @@ export function AdminPage() {
 
               <div className="grid gap-4">
                 {members.map((member) => (
-                  <div key={member.id} className="rounded-[1.5rem] border border-jsd-orange/10 bg-[#fff8ef] p-4 dark:border-white/10 dark:bg-white/5">
-                    <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div key={member.id} className="rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <div className="space-y-2">
                         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange">{member.role}</p>
                         <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">{member.name}</h3>
@@ -373,7 +373,7 @@ export function AdminPage() {
 
         {activeSection === "requests" && (
           <ScrollReveal>
-            <Card className="space-y-6 border-jsd-orange/12">
+            <Card className="space-y-8 border-black/5 shadow-md p-8 lg:p-10">
               {!viewingRequestId ? (
                 <>
                   <div>
@@ -382,7 +382,7 @@ export function AdminPage() {
                   </div>
                   <div className="grid gap-4">
                     {joinRequests.map((request) => (
-                      <div key={request.id} className="rounded-[1.5rem] flex items-center justify-between border border-jsd-orange/10 bg-[#fff8ef] p-5 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                      <div key={request.id} className="rounded-[1.25rem] flex items-center justify-between border border-black/5 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-white/10 dark:bg-white/5">
                         <div className="space-y-1">
                           <h3 className="font-display text-xl font-bold text-jsd-blue-dark dark:text-white">{request.name}</h3>
                           <p className="text-sm text-jsd-black/60 dark:text-white/60">{request.email} • {formatDateTime(request.createdAt)}</p>
@@ -439,7 +439,7 @@ export function AdminPage() {
                       </div>
 
                       {req.motivation && (
-                        <div className="rounded-[1.5rem] bg-[#fff8ef] p-6 dark:bg-white/5 border border-jsd-orange/10">
+                        <div className="rounded-[1.25rem] bg-black/[0.02] p-6 dark:bg-white/5 border border-black/5">
                           <p className="text-xs font-bold uppercase tracking-widest text-jsd-orange mb-3">Motivação</p>
                           <p className="text-sm leading-relaxed text-jsd-black/80 dark:text-white/80">{req.motivation}</p>
                         </div>
