@@ -8,25 +8,37 @@ export const generateId = (prefix = "id") => {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
 };
 
-export const formatDate = (value, options = {}) =>
-  new Intl.DateTimeFormat("pt-PT", {
+export const formatDate = (value, options = {}) => {
+  if (!value) return "Data não definida";
+  const d = new Date(value);
+  if (isNaN(d.valueOf())) return "Data inválida";
+  return new Intl.DateTimeFormat("pt-PT", {
     day: "numeric",
     month: "long",
     year: "numeric",
     ...options
-  }).format(new Date(value));
+  }).format(d);
+};
 
-export const formatCompactDate = (value) =>
-  new Intl.DateTimeFormat("pt-PT", {
+export const formatCompactDate = (value) => {
+  if (!value) return "--";
+  const d = new Date(value);
+  if (isNaN(d.valueOf())) return "--";
+  return new Intl.DateTimeFormat("pt-PT", {
     day: "2-digit",
     month: "short"
-  }).format(new Date(value));
+  }).format(d);
+};
 
-export const formatDateTime = (value) =>
-  new Intl.DateTimeFormat("pt-PT", {
+export const formatDateTime = (value) => {
+  if (!value) return "S/ Data";
+  const d = new Date(value);
+  if (isNaN(d.valueOf())) return "Data inválida";
+  return new Intl.DateTimeFormat("pt-PT", {
     dateStyle: "medium",
     timeStyle: "short"
-  }).format(new Date(value));
+  }).format(d);
+};
 
 export const sortByNewest = (items, key) =>
   [...items].sort((left, right) => new Date(right[key]).getTime() - new Date(left[key]).getTime());

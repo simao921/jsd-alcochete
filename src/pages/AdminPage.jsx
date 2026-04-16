@@ -262,7 +262,7 @@ export function AdminPage() {
                         <p className="text-sm text-jsd-black/65 dark:text-white/65">{formatDateTime(item.date)} • {item.location}</p>
                       </div>
                       <div className="flex gap-2">
-                        <button type="button" className="btn-secondary" onClick={() => { setEventForm({ ...item, date: item.date.slice(0, 16) }); setEditingIds((current) => ({ ...current, event: item.id })); }}>Editar</button>
+                        <button type="button" className="btn-secondary" onClick={() => { setEventForm({ ...item, date: item.date && typeof item.date === 'string' ? item.date.slice(0, 16) : "" }); setEditingIds((current) => ({ ...current, event: item.id })); }}>Editar</button>
                         <button type="button" className="rounded-full bg-red-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-600" onClick={() => deleteEvent(item.id)}>Eliminar</button>
                       </div>
                     </div>

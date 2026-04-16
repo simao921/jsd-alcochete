@@ -6,11 +6,17 @@ import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { formatDate } from "../services/helpers";
 
 function getDay(isoString) {
-  return new Date(isoString).toLocaleDateString("pt-PT", { day: "2-digit" });
+  if (!isoString) return "--";
+  const d = new Date(isoString);
+  if (isNaN(d.valueOf())) return "--";
+  return d.toLocaleDateString("pt-PT", { day: "2-digit" });
 }
 
 function getMonth(isoString) {
-  return new Date(isoString).toLocaleDateString("pt-PT", { month: "short" }).replace(".", "");
+  if (!isoString) return "---";
+  const d = new Date(isoString);
+  if (isNaN(d.valueOf())) return "---";
+  return d.toLocaleDateString("pt-PT", { month: "short" }).replace(".", "");
 }
 
 export function HomePage() {
