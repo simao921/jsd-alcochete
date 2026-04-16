@@ -33,8 +33,7 @@ export const joinRequestsSeed = [];
 
 export const navigationLinks = [
   { to: "/", label: "Home" },
-  { to: "/sobre", label: "Quem Somos?" },
-  { to: "/equipa", label: "Equipa" },
+  { to: "/sobre", label: "Quem Somos" },
   { to: "/noticias", label: "Notícias" },
   { to: "/eventos", label: "Eventos" },
   { to: "/junta-te", label: "Junta-te" }
