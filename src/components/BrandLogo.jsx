@@ -15,7 +15,7 @@ export function BrandLogo({
         <img
           src="/jsd-logo.jpg"
           alt="Logótipo da JSD"
-          className={cn("h-16 w-auto object-contain sm:h-20", imageClassName)}
+          className={cn("h-16 w-16 object-cover rounded-full shadow-sm sm:h-20 sm:w-20", imageClassName)}
         />
       </div>
 
