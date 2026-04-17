@@ -450,7 +450,27 @@ export function AdminPage() {
                         {/* Participants drawer */}
                         {isOpen && (
                           <div className="border-t border-black/5 p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
-                            <p className="text-xs font-bold uppercase tracking-widest text-jsd-orange">Selecionar inscritos</p>
+                            <div className="flex items-center justify-between gap-4">
+                              <p className="text-xs font-bold uppercase tracking-widest text-jsd-orange">Selecionar inscritos</p>
+                              {draftParticipants.length > 0 && (
+                                <button
+                                  type="button"
+                                  className="text-[11px] font-bold uppercase tracking-wider text-jsd-blue-dark underline decoration-jsd-orange/40 underline-offset-4 hover:text-jsd-orange"
+                                  onClick={() => {
+                                    const enrolledNames = safeMembers
+                                      .filter((m) => draftParticipants.includes(m.id))
+                                      .map((m) => ({ Nome: m.name, Email: m.email }));
+                                    exportToPDF(
+                                      `Lista de Inscritos: ${item.title}`,
+                                      enrolledNames,
+                                      [{ label: "Nome", key: "Nome" }, { label: "Email", key: "Email" }]
+                                    );
+                                  }}
+                                >
+                                  ↓ Exportar PDF dos Inscritos
+                                </button>
+                              )}
+                            </div>
                             {safeMembers.length === 0 ? (
                               <p className="text-sm text-jsd-black/45">Sem membros registados. Adiciona membros primeiro.</p>
                             ) : (

@@ -47,12 +47,21 @@ export function AboutPage() {
                     Desde os anos 70
                   </span>
                 </div>
-                <div className="space-y-4">
-                  <p className="font-display text-5xl font-bold md:text-6xl">+ Liberdade</p>
-                  <p className="font-display text-5xl font-bold md:text-6xl">+ Responsabilidade</p>
-                  <p className="font-display text-5xl font-bold md:text-6xl">+ Futuro</p>
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 text-2xl font-bold">+</span>
+                    <span className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-5xl">Liberdade</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 text-2xl font-bold">+</span>
+                    <span className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-5xl">Responsabilidade</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 text-2xl font-bold">+</span>
+                    <span className="font-display text-4xl font-bold tracking-tight md:text-5xl lg:text-5xl">Futuro</span>
+                  </div>
                 </div>
-                <p className="max-w-xl text-sm leading-7 text-white/78">
+                <p className="max-w-xl text-base leading-relaxed text-white/80">
                   A nossa força vem da união. Quando ideias claras se juntam a uma grande equipa, é possível transformar a nossa terra e dar voz aos mais novos num mundo que tantas vezes nos ignora.
                 </p>
               </div>
