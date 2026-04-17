@@ -121,6 +121,26 @@ export function AdminPage() {
   const [memberForm, setMemberForm] = useState(memberInitial);
   const [editingIds, setEditingIds] = useState({ news: null, event: null, team: null, member: null });
   const [viewingRequestId, setViewingRequestId] = useState(null);
+  const [managingParticipantsId, setManagingParticipantsId] = useState(null);
+  const [draftParticipants, setDraftParticipants] = useState([]);
+
+  const openParticipants = (item) => {
+    setManagingParticipantsId(item.id);
+    setDraftParticipants(Array.isArray(item.participants) ? item.participants : []);
+  };
+
+  const toggleParticipant = (memberId) => {
+    setDraftParticipants((current) =>
+      current.includes(memberId)
+        ? current.filter((id) => id !== memberId)
+        : [...current, memberId]
+    );
+  };
+
+  const saveParticipants = () => {
+    updateEvent(managingParticipantsId, { participants: draftParticipants });
+    setManagingParticipantsId(null);
+  };
 
   useDocumentMeta({
     title: "Admin | JSD Alcochete",
@@ -343,29 +363,84 @@ export function AdminPage() {
                 )}
                 {safeEvents.map((item) => {
                   const dateStr = item.date ? new Date(item.date).toLocaleString("pt-PT") : "Sem data";
+                  const enrolledIds = Array.isArray(item.participants) ? item.participants : [];
+                  const isOpen = managingParticipantsId === item.id;
                   return (
                     <SafeItem key={item.id}>
-                      <div className="group flex flex-wrap items-center justify-between gap-4 rounded-[1.25rem] border border-black/5 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5">
-                        <div className="min-w-0 flex-1 space-y-2">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <StatusBadge status={item.status} />
-                            {item.featured && (
-                              <span className="rounded-full bg-jsd-orange/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jsd-orange">Destaque</span>
-                            )}
+                      <div className="rounded-[1.25rem] border border-black/5 bg-white shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-white/5">
+                        {/* Main row */}
+                        <div className="flex flex-wrap items-center justify-between gap-4 p-5">
+                          <div className="min-w-0 flex-1 space-y-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <StatusBadge status={item.status} />
+                              {item.featured && (
+                                <span className="rounded-full bg-jsd-orange/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-jsd-orange">Destaque</span>
+                              )}
+                              <span className="rounded-full bg-jsd-blue-dark/8 px-2.5 py-0.5 text-[10px] font-bold text-jsd-blue-dark dark:bg-white/10 dark:text-white">
+                                {enrolledIds.length} inscrito{enrolledIds.length !== 1 ? "s" : ""}
+                              </span>
+                            </div>
+                            <h3 className="font-display text-xl font-bold leading-snug text-jsd-blue-dark line-clamp-1 dark:text-white">{item.title || "Sem título"}</h3>
+                            <p className="text-sm text-jsd-black/55 dark:text-white/50">
+                              {dateStr} &bull; {item.location || "Sem local"}
+                            </p>
                           </div>
-                          <h3 className="font-display text-xl font-bold leading-snug text-jsd-blue-dark line-clamp-1 dark:text-white">{item.title || "Sem título"}</h3>
-                          <p className="text-sm text-jsd-black/55 dark:text-white/50">
-                            {dateStr} &bull; {item.location || "Sem local"}
-                          </p>
+                          <div className="flex shrink-0 flex-wrap gap-2">
+                            <button
+                              type="button"
+                              className={cn("btn-secondary", isOpen && "bg-jsd-orange/10 text-jsd-orange border-jsd-orange/30")}
+                              onClick={() => isOpen ? setManagingParticipantsId(null) : openParticipants(item)}
+                            >
+                              {isOpen ? "Fechar" : "Inscrições"}
+                            </button>
+                            <button type="button" className="btn-secondary" onClick={() => {
+                              const formDate = item.date && typeof item.date === "string" ? item.date.slice(0, 16) : "";
+                              setEventForm({ ...item, date: formDate });
+                              setEditingIds((c) => ({ ...c, event: item.id }));
+                              setManagingParticipantsId(null);
+                            }}>Editar</button>
+                            <DeleteButton onClick={() => deleteEvent(item.id)} />
+                          </div>
                         </div>
-                        <div className="flex shrink-0 gap-2">
-                          <button type="button" className="btn-secondary" onClick={() => {
-                            const formDate = item.date && typeof item.date === "string" ? item.date.slice(0, 16) : "";
-                            setEventForm({ ...item, date: formDate });
-                            setEditingIds((c) => ({ ...c, event: item.id }));
-                          }}>Editar</button>
-                          <DeleteButton onClick={() => deleteEvent(item.id)} />
-                        </div>
+
+                        {/* Participants drawer */}
+                        {isOpen && (
+                          <div className="border-t border-black/5 p-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                            <p className="text-xs font-bold uppercase tracking-widest text-jsd-orange">Selecionar inscritos</p>
+                            {safeMembers.length === 0 ? (
+                              <p className="text-sm text-jsd-black/45">Sem membros registados. Adiciona membros primeiro.</p>
+                            ) : (
+                              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                {safeMembers.map((m) => (
+                                  <label
+                                    key={m.id}
+                                    className={cn(
+                                      "flex cursor-pointer items-center gap-3 rounded-xl border p-3 text-sm transition",
+                                      draftParticipants.includes(m.id)
+                                        ? "border-jsd-orange/40 bg-jsd-orange/5 font-semibold text-jsd-blue-dark"
+                                        : "border-black/5 bg-[#fafafa] text-jsd-black/65 hover:border-jsd-orange/20"
+                                    )}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      className="accent-jsd-orange"
+                                      checked={draftParticipants.includes(m.id)}
+                                      onChange={() => toggleParticipant(m.id)}
+                                    />
+                                    <div className="min-w-0">
+                                      <p className="truncate font-medium text-jsd-blue-dark">{m.name}</p>
+                                      <p className="truncate text-xs text-jsd-black/45">{m.email}</p>
+                                    </div>
+                                  </label>
+                                ))}
+                              </div>
+                            )}
+                            <div className="flex gap-3 pt-1">
+                              <button type="button" className="btn-primary" onClick={saveParticipants}>Guardar inscrições</button>
+                              <button type="button" className="btn-secondary" onClick={() => setManagingParticipantsId(null)}>Cancelar</button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </SafeItem>
                   );
