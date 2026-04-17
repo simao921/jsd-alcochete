@@ -78,8 +78,8 @@ export function JoinPage() {
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert("O ficheiro deve ter menos de 2MB para não exceder o limite atual do browser.");
+    if (file.size > 10 * 1024 * 1024) {
+      alert("O ficheiro deve ter menos de 10MB para poder ser anexado.");
       return;
     }
 
@@ -331,15 +331,15 @@ export function JoinPage() {
                 <p className="mt-2 text-sm text-jsd-black/65 dark:text-white/65">Carregue as duas frentes do cartão de cidadão</p>
               </div>
               <div className="grid gap-5 md:grid-cols-2">
-                <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
-                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Front")} required />
+                <label htmlFor="ccFront" className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
+                  <input id="ccFront" type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Front")} required />
                   <span className="font-display text-xl font-bold text-jsd-blue-dark">Frente do CC</span>
                   <span className="text-sm text-jsd-black/60">
                     {form.documentFrontName || "PDF, JPG ou PNG"}
                   </span>
                 </label>
-                <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
-                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Back")} required />
+                <label htmlFor="ccBack" className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
+                  <input id="ccBack" type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Back")} required />
                   <span className="font-display text-xl font-bold text-jsd-blue-dark">Verso do CC</span>
                   <span className="text-sm text-jsd-black/60">
                     {form.documentBackName || "PDF, JPG ou PNG"}
