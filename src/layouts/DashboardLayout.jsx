@@ -1,12 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import { Navbar } from "../components/Navbar";
 import { BrandLogo } from "../components/BrandLogo";
-import { useAuth } from "../context/AuthContext";
+import { navigationLinks } from "../data/seed";
 import { cn } from "../services/helpers";
 
 export function DashboardLayout({ children }) {
-  const { currentUser } = useAuth();
+  const { pathname } = useLocation();
 
   return (
     <div className="min-h-screen">
@@ -18,7 +18,7 @@ export function DashboardLayout({ children }) {
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-jsd-orange">JSD Dashboard</p>
                 <h1 className="mt-1 font-display text-2xl font-black text-jsd-blue-dark dark:text-white">
-                  {currentUser ? `Bem-vindo, ${currentUser.name.split(" ")[0]}` : "Área Reservada"}
+                  Área Reservada
                 </h1>
               </div>
            </div>

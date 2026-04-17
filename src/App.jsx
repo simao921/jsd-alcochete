@@ -3,13 +3,11 @@ import { Outlet, Route, Routes, useLocation, useNavigate } from "react-router-do
 
 import { NotificationContainer } from "./components/NotificationContainer";
 import { useApp } from "./context/AppContext";
-import { useAuth } from "./context/AuthContext";
 import { DashboardLayout } from "./layouts/DashboardLayout";
 import { MainLayout } from "./layouts/MainLayout";
 import { ADMIN_SECRET_PATH, isAdminShortcutUnlocked, unlockAdminShortcut } from "./services/adminAccess";
 import { AboutPage } from "./pages/AboutPage";
 import { AdminPage } from "./pages/AdminPage";
-import { DashboardPage } from "./pages/DashboardPage";
 import { EstruturasPage } from "./pages/EstruturasPage";
 import { EventsPage } from "./pages/EventsPage";
 import { HomePage } from "./pages/HomePage";
@@ -75,13 +73,7 @@ function PublicShell() {
   );
 }
 
-function PrivateShell() {
-  return (
-    <DashboardLayout>
-      <Outlet />
-    </DashboardLayout>
-  );
-}
+
 
 function HiddenAdminPage() {
   if (!isAdminShortcutUnlocked()) {

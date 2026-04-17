@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-import { useAuth } from "../context/AuthContext";
 import { navigationLinks } from "../data/seed";
 import { cn } from "../services/helpers";
 import { BrandLogo } from "./BrandLogo";
@@ -10,7 +9,6 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const { pathname } = useLocation();
-  const { currentUser, isAuthenticated, logout } = useAuth();
   const aboutLinks = [
     { href: "/sobre", label: "Sobre Nós & História" },
     { href: "/orgaos", label: "Os Nossos Órgãos" },

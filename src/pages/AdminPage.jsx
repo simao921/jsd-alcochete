@@ -3,7 +3,6 @@ import { useMemo, useState } from "react";
 import { Card } from "../components/Card";
 import { ScrollReveal } from "../components/ScrollReveal";
 import { useApp } from "../context/AppContext";
-import { useAuth } from "../context/AuthContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { AdminSidebar } from "../layouts/AdminSidebar";
 import { cn, formatDate, formatDateTime } from "../services/helpers";
@@ -12,7 +11,7 @@ import { cn, formatDate, formatDateTime } from "../services/helpers";
 const newsInitial  = { title: "", category: "Atividades", excerpt: "", content: "", author: "", featured: false };
 const eventInitial = { title: "", category: "Debate", date: "", location: "", summary: "", status: "Inscrições abertas", capacity: 30, featured: false };
 const teamInitial  = { name: "", role: "", group: "Comissão Política", bio: "", email: "", photo: "" };
-const memberInitial = { name: "", email: "", age: "", motivation: "", password: "", role: "member", points: 30 };
+const memberInitial = { name: "", email: "", age: "", motivation: "", role: "member", points: 30 };
 
 // ─── PDF Export ────────────────────────────────────────────────────────────
 function exportToPDF(title, rows, columns) {
@@ -140,7 +139,6 @@ export function AdminPage() {
     registerMember, updateMember, deleteMember,
     updateJoinRequestStatus
   } = useApp();
-  const { currentUser, isAdmin } = useAuth();
 
   const [activeSection, setActiveSection] = useState("news");
   const [newsForm, setNewsForm]     = useState(newsInitial);
@@ -172,18 +170,16 @@ export function AdminPage() {
 
   // ─── Convert Request → Member ────────────────────────────────────────────
   const convertRequestToMember = (req) => {
-    const password = Math.random().toString(36).slice(2, 10) + "Jsd!";
     registerMember({
       name: req.name || "",
       email: req.email || "",
       age: "",
       motivation: req.motivation || "",
-      password,
       role: "member",
       points: 30,
     });
     updateJoinRequestStatus(req.id, "Convertido");
-    alert(`Membro criado!\nEmail: ${req.email}\nPassword gerada: ${password}\n\nGuarda esta password para a partilhar com o novo membro.`);
+    alert(`Membro criado com sucesso! O novo militante foi adicionado à lista de Membros.`);
   };
 
   useDocumentMeta({
@@ -623,11 +619,6 @@ export function AdminPage() {
                 <FieldGroup label="Motivação">
                   <textarea className="textarea" placeholder="Motivo de interesse na JSD…" value={memberForm.motivation} onChange={(e) => setMemberForm((c) => ({ ...c, motivation: e.target.value }))} />
                 </FieldGroup>
-                {!editingIds.member && (
-                  <FieldGroup label="Password">
-                    <input className="input" type="password" placeholder="Mínimo 8 caracteres" value={memberForm.password} onChange={(e) => setMemberForm((c) => ({ ...c, password: e.target.value }))} required />
-                  </FieldGroup>
-                )}
                 <ActionRow>
                   <button type="submit" className="btn-primary">{editingIds.member ? "Guardar alterações" : "Registar membro"}</button>
                   {editingIds.member && <button type="button" className="btn-secondary" onClick={() => { setMemberForm(memberInitial); resetEditing("member"); }}>Cancelar</button>}
