@@ -14,6 +14,34 @@ const eventInitial = { title: "", category: "Debate", date: "", location: "", su
 const teamInitial  = { name: "", role: "", group: "Comissão Política", bio: "", email: "", photo: "" };
 const memberInitial = { name: "", email: "", age: "", motivation: "", password: "", role: "member", points: 30 };
 
+// ─── PDF Export ────────────────────────────────────────────────────────────
+function exportToPDF(title, rows, columns) {
+  const colWidths = columns.map(() => `${Math.floor(100 / columns.length)}%`).join("; ");
+  const headerCells = columns.map((c) => `<th style="border:1px solid #ddd;padding:8px;background:#FF9900;color:#fff;text-align:left;font-size:12px">${c.label}</th>`).join("");
+  const bodyRows = rows.map((row) => {
+    const cells = columns.map((c) => `<td style="border:1px solid #eee;padding:8px;font-size:11px;vertical-align:top">${row[c.key] ?? "—"}</td>`).join("");
+    return `<tr>${cells}</tr>`;
+  }).join("");
+
+  const html = `<!DOCTYPE html>
+<html lang="pt-PT"><head><meta charset="UTF-8"/>
+<title>${title}</title>
+<style>body{font-family:Arial,sans-serif;padding:20px}h1{color:#1a2f5e;font-size:20px;margin-bottom:4px}p.meta{color:#888;font-size:11px;margin-bottom:16px}table{width:100%;border-collapse:collapse}@media print{button{display:none}}</style>
+</head><body>
+<h1>${title}</h1>
+<p class="meta">Exportado em ${new Date().toLocaleString("pt-PT")} — JSD Alcochete</p>
+<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>
+<br/><button onclick="window.print()" style="background:#FF9900;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>
+</body></html>`;
+
+  const w = window.open("", "_blank");
+  if (!w) { alert("O browser bloqueou a janela popup. Permite popups para este site."); return; }
+  w.document.write(html);
+  w.document.close();
+  setTimeout(() => w.print(), 600);
+}
+
+
 // ─── Micro Components ─────────────────────────────────────────────────────
 function SectionHeader({ eyebrow, title, subtitle }) {
   return (
@@ -140,6 +168,22 @@ export function AdminPage() {
   const saveParticipants = () => {
     updateEvent(managingParticipantsId, { participants: draftParticipants });
     setManagingParticipantsId(null);
+  };
+
+  // ─── Convert Request → Member ────────────────────────────────────────────
+  const convertRequestToMember = (req) => {
+    const password = Math.random().toString(36).slice(2, 10) + "Jsd!";
+    registerMember({
+      name: req.name || "",
+      email: req.email || "",
+      age: "",
+      motivation: req.motivation || "",
+      password,
+      role: "member",
+      points: 30,
+    });
+    updateJoinRequestStatus(req.id, "Convertido");
+    alert(`Membro criado!\nEmail: ${req.email}\nPassword gerada: ${password}\n\nGuarda esta password para a partilhar com o novo membro.`);
   };
 
   useDocumentMeta({
@@ -571,6 +615,31 @@ export function AdminPage() {
               </form>
 
               <div className="grid gap-3">
+                {safeMembers.length > 0 && (
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      onClick={() => exportToPDF(
+                        "Lista de Membros JSD Alcochete",
+                        safeMembers.map((m) => ({
+                          Nome: m.name,
+                          Email: m.email,
+                          Funcao: m.role === "admin" ? "Administrador" : "Membro",
+                          Pontos: m.points,
+                        })),
+                        [
+                          { label: "Nome", key: "Nome" },
+                          { label: "Email", key: "Email" },
+                          { label: "Função", key: "Funcao" },
+                          { label: "Pontos", key: "Pontos" },
+                        ]
+                      )}
+                    >
+                      ↓ Exportar PDF
+                    </button>
+                  </div>
+                )}
                 {safeMembers.length === 0 && <p className="p-4 text-sm text-jsd-black/45">Sem membros registados.</p>}
                 {safeMembers.map((m) => (
                   <SafeItem key={m.id}>
@@ -602,6 +671,35 @@ export function AdminPage() {
                     title="Pedidos de adesão"
                     subtitle="Processa os pedidos submetidos na página Junta-te."
                   />
+                  {safeReqs.length > 0 && (
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        onClick={() => exportToPDF(
+                          "Lista de Pedidos de Adesão — JSD Alcochete",
+                          safeReqs.map((r) => ({
+                            Nome: r.name,
+                            Email: r.email,
+                            Telemovel: r.mobile,
+                            Estado: r.status,
+                            Distrito: r.district,
+                            Conselho: r.council,
+                          })),
+                          [
+                            { label: "Nome", key: "Nome" },
+                            { label: "Email", key: "Email" },
+                            { label: "Telemóvel", key: "Telemovel" },
+                            { label: "Estado", key: "Estado" },
+                            { label: "Distrito", key: "Distrito" },
+                            { label: "Concelho", key: "Conselho" },
+                          ]
+                        )}
+                      >
+                        ↓ Exportar PDF
+                      </button>
+                    </div>
+                  )}
                   <div className="grid gap-3">
                     {safeReqs.length === 0 && <p className="p-4 text-sm text-jsd-black/45">Ainda não há pedidos de adesão.</p>}
                     {safeReqs.map((req) => (
@@ -636,11 +734,25 @@ export function AdminPage() {
                         <h2 className="font-display text-4xl font-black text-jsd-blue-dark dark:text-white">{req.name}</h2>
                         <p className="mt-2 text-lg text-jsd-black/55 dark:text-white/55">{req.email}</p>
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-jsd-black/45">Estado do processo</label>
-                        <select className="input min-w-[180px]" value={req.status} onChange={(e) => updateJoinRequestStatus(req.id, e.target.value)}>
-                          {requestStatuses.map((s) => <option key={s}>{s}</option>)}
-                        </select>
+                      <div className="flex flex-wrap items-end gap-3">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-[10px] font-bold uppercase tracking-widest text-jsd-black/45">Estado do processo</label>
+                          <select className="input min-w-[180px]" value={req.status} onChange={(e) => updateJoinRequestStatus(req.id, e.target.value)}>
+                            {requestStatuses.map((s) => <option key={s}>{s}</option>)}
+                          </select>
+                        </div>
+                        {req.status !== "Convertido" && (
+                          <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={() => convertRequestToMember(req)}
+                          >
+                            ✓ Converter para Membro
+                          </button>
+                        )}
+                        {req.status === "Convertido" && (
+                          <span className="rounded-full bg-emerald-100 px-4 py-2 text-sm font-bold text-emerald-700">✓ Já convertido</span>
+                        )}
                       </div>
                     </div>
 
