@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    font-size: 14.5px; /* Global scale reduction */
+    font-size: 17px; /* Slightly above browser default for a spacious, zoomed-in feel */
   }
 
   :root {
