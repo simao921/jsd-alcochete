@@ -34,10 +34,14 @@ const initialForm = {
   registrationDistrict: "",
   registrationCouncil: "",
   referencedBy: "",
-  documentName: "",
-  documentType: "",
-  documentSize: 0,
-  documentDataUri: null
+  documentFrontName: "",
+  documentFrontType: "",
+  documentFrontSize: 0,
+  documentFrontUri: null,
+  documentBackName: "",
+  documentBackType: "",
+  documentBackSize: 0,
+  documentBackUri: null
 };
 
 export function JoinPage() {
@@ -67,10 +71,10 @@ export function JoinPage() {
     });
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event, side) => {
     const file = event.target.files?.[0];
     if (!file) {
-      setForm((current) => ({ ...current, documentName: "", documentType: "", documentSize: 0, documentDataUri: null }));
+      setForm((current) => ({ ...current, [`document${side}Name`]: "", [`document${side}Type`]: "", [`document${side}Size`]: 0, [`document${side}Uri`]: null }));
       return;
     }
 
@@ -83,10 +87,10 @@ export function JoinPage() {
     reader.onload = (e) => {
       setForm((current) => ({
         ...current,
-        documentName: file.name,
-        documentType: file.type,
-        documentSize: file.size,
-        documentDataUri: e.target.result // Base64 uri
+        [`document${side}Name`]: file.name,
+        [`document${side}Type`]: file.type,
+        [`document${side}Size`]: file.size,
+        [`document${side}Uri`]: e.target.result
       }));
     };
     reader.readAsDataURL(file);
@@ -112,10 +116,14 @@ export function JoinPage() {
       professionalStatus: form.professionalStatus,
       registrationCouncil: form.registrationCouncil,
       referencedBy: form.referencedBy,
-      documentName: form.documentName,
-      documentType: form.documentType,
-      documentSize: form.documentSize,
-      documentDataUri: form.documentDataUri
+      documentFrontName: form.documentFrontName,
+      documentFrontType: form.documentFrontType,
+      documentFrontSize: form.documentFrontSize,
+      documentFrontUri: form.documentFrontUri,
+      documentBackName: form.documentBackName,
+      documentBackType: form.documentBackType,
+      documentBackSize: form.documentBackSize,
+      documentBackUri: form.documentBackUri
     });
 
     event.currentTarget.reset();
@@ -320,15 +328,24 @@ export function JoinPage() {
             <section className="space-y-5">
               <div>
                 <h3 className="font-display text-2xl font-bold text-jsd-blue-dark dark:text-white">Carregamento de Documentos</h3>
-                <p className="mt-2 text-sm text-jsd-black/65 dark:text-white/65">Carregue os documentos necessários</p>
+                <p className="mt-2 text-sm text-jsd-black/65 dark:text-white/65">Carregue as duas frentes do cartão de cidadão</p>
               </div>
-              <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
-                <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={handleFileChange} required />
-                <span className="font-display text-2xl font-bold text-jsd-blue-dark">Clique para carregar cartão de cidadão</span>
-                <span className="text-sm text-jsd-black/60">
-                  {form.documentName || "PDF, JPG ou PNG até ao limite definido pelo navegador"}
-                </span>
-              </label>
+              <div className="grid gap-5 md:grid-cols-2">
+                <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Front")} required />
+                  <span className="font-display text-xl font-bold text-jsd-blue-dark">Frente do CC</span>
+                  <span className="text-sm text-jsd-black/60">
+                    {form.documentFrontName || "PDF, JPG ou PNG"}
+                  </span>
+                </label>
+                <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-[1.75rem] border border-dashed border-jsd-orange/35 bg-[#fff8ef] px-6 py-8 text-center transition hover:border-jsd-orange hover:bg-[#fff3df]">
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => handleFileChange(e, "Back")} required />
+                  <span className="font-display text-xl font-bold text-jsd-blue-dark">Verso do CC</span>
+                  <span className="text-sm text-jsd-black/60">
+                    {form.documentBackName || "PDF, JPG ou PNG"}
+                  </span>
+                </label>
+              </div>
             </section>
 
             <button type="submit" className="btn-primary w-full py-4 text-base">

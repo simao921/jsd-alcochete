@@ -459,21 +459,42 @@ export function AdminPage() {
                       )}
 
                       <div className="flex flex-col gap-4 border-t border-black/10 pt-6">
-                        <p className="text-sm font-semibold text-jsd-black/70">Documento de Identificação Anexado:</p>
-                        <div className="flex items-center gap-4">
-                          <span className="font-mono text-xs bg-jsd-black/5 px-3 py-2 rounded-lg">{req.documentName || "Sem documento"}</span>
-                          {req.documentDataUri && (
-                            <a 
-                              href={req.documentDataUri} 
-                              download={req.documentName} 
-                              target="_blank" 
-                              rel="noreferrer" 
-                              className="btn-primary"
-                            >
-                              Baixar / Ver Cartão
-                            </a>
-                          )}
+                        <p className="text-sm font-semibold text-jsd-black/70">Documentos de Identificação Anexados:</p>
+                        
+                        <div className="flex flex-wrap gap-6">
+                          <div className="flex flex-col gap-2 border border-black/5 p-4 rounded-xl">
+                            <span className="text-xs font-bold uppercase text-jsd-orange">Frente</span>
+                            <span className="font-mono text-xs bg-jsd-black/5 px-3 py-2 rounded-lg break-all">{req.documentFrontName || "N/A"}</span>
+                            {req.documentFrontUri && (
+                              <a 
+                                href={req.documentFrontUri} 
+                                download={req.documentFrontName} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="btn-primary text-center mt-2"
+                              >
+                                Ver Frente
+                              </a>
+                            )}
+                          </div>
+
+                          <div className="flex flex-col gap-2 border border-black/5 p-4 rounded-xl">
+                            <span className="text-xs font-bold uppercase text-jsd-orange">Verso</span>
+                            <span className="font-mono text-xs bg-jsd-black/5 px-3 py-2 rounded-lg break-all">{req.documentBackName || "N/A"}</span>
+                            {req.documentBackUri && (
+                              <a 
+                                href={req.documentBackUri} 
+                                download={req.documentBackName} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="btn-primary text-center mt-2"
+                              >
+                                Ver Verso
+                              </a>
+                            )}
+                          </div>
                         </div>
+
                       </div>
                     </div>
                   );
