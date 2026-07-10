@@ -1,6 +1,5 @@
 import { useDeferredValue, useMemo, useState } from "react";
 
-import { Card } from "../components/Card";
 import { NewsCard } from "../components/NewsCard";
 import { PageBanner } from "../components/PageBanner";
 import { ScrollReveal } from "../components/ScrollReveal";
@@ -44,9 +43,9 @@ export function NewsPage() {
         description="Acompanha a atividade da JSD Alcochete, os comunicados e os textos de opinião da estrutura."
       />
 
-      <section className="section-shell pt-0">
+      <section className="section-shell pt-0 pb-20">
         <ScrollReveal>
-          <Card className="mb-8 border-jsd-orange/12 bg-[#fff8ef]">
+          <div className="mb-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
             <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
               <input
                 type="search"
@@ -68,16 +67,24 @@ export function NewsPage() {
                 ))}
               </div>
             </div>
-          </Card>
+          </div>
         </ScrollReveal>
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          {filteredNews.map((article) => (
-            <ScrollReveal key={article.id}>
-              <NewsCard article={article} />
-            </ScrollReveal>
-          ))}
-        </div>
+        {filteredNews.length === 0 ? (
+          <ScrollReveal>
+            <div className="rounded-2xl border border-dashed border-white/10 py-20 text-center">
+              <p className="text-white/50 text-base">Sem notícias com estes critérios.</p>
+            </div>
+          </ScrollReveal>
+        ) : (
+          <div className="grid gap-6 lg:grid-cols-2">
+            {filteredNews.map((article) => (
+              <ScrollReveal key={article.id}>
+                <NewsCard article={article} />
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

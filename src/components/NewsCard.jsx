@@ -1,29 +1,37 @@
 import { Link } from "react-router-dom";
+
 import { Card } from "./Card";
 import { formatDate } from "../services/helpers";
 
 export function NewsCard({ article }) {
   return (
-    <Card className="h-full space-y-4 border-jsd-orange/12">
+    <Card className="h-full space-y-4 border-jsd-orange/15 hover:border-jsd-orange/30 transition-colors duration-300 group">
       <div className="flex items-center justify-between gap-4">
-        <span className="rounded-full bg-[#fff4e1] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-jsd-orange">
+        <span className="rounded-full text-[10px] font-bold uppercase tracking-[0.3em] text-jsd-orange border border-jsd-orange/20 bg-jsd-orange/10 px-3 py-1">
           {article.category}
         </span>
-        <span className="text-xs font-medium uppercase tracking-[0.18em] text-jsd-black/45 dark:text-white/45">
+        <span className="text-xs font-medium uppercase tracking-widest text-white/45">
           {formatDate(article.publishedAt)}
         </span>
       </div>
-      <Link to={`/noticias/${article.id}`} className="block group">
-        <div className="space-y-3 mt-4">
-          <h3 className="font-display text-2xl font-bold text-jsd-blue-dark group-hover:text-jsd-orange transition-colors dark:text-white">{article.title}</h3>
-          <p className="copy text-sm">{article.excerpt}</p>
+      <Link to={`/noticias/${article.id}`} className="block">
+        <div className="space-y-3 mt-2">
+          <h3 className="font-display text-2xl font-bold text-white group-hover:text-jsd-orange transition-colors">
+            {article.title}
+          </h3>
+          <p className="text-sm leading-relaxed text-white/65">{article.excerpt}</p>
         </div>
       </Link>
-      <div className="rounded-[1.5rem] bg-[#fff8ef] p-4 text-sm leading-7 text-jsd-black/75 dark:bg-white/5 dark:text-white/72 mb-2">
+      <div className="border border-white/5 bg-white/[0.02] p-4 text-sm leading-7 text-white/60">
         <p className="line-clamp-3">{article.content}</p>
-        <Link to={`/noticias/${article.id}`} className="inline-block mt-2 font-bold text-jsd-orange hover:text-jsd-blue-dark transition-colors">Ler mais &rarr;</Link>
+        <Link
+          to={`/noticias/${article.id}`}
+          className="inline-block mt-3 font-bold text-jsd-orange hover:text-white transition-colors text-xs uppercase tracking-widest"
+        >
+          Ler mais &rarr;
+        </Link>
       </div>
-      <p className="text-sm font-semibold text-jsd-blue-dark dark:text-jsd-orange">Por {article.author}</p>
+      <p className="text-sm font-semibold text-jsd-orange/80">Por {article.author}</p>
     </Card>
   );
 }

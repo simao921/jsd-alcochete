@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { BrandLogo } from "../components/BrandLogo";
 import { Card } from "../components/Card";
+import { PageBanner } from "../components/PageBanner";
 import { MainLayout } from "../layouts/MainLayout";
 
 export function NotFoundPage() {
@@ -10,7 +11,7 @@ export function NotFoundPage() {
       <section className="section-shell">
         <Card className="mx-auto max-w-4xl overflow-hidden border-jsd-orange/15 p-0">
           <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="flex h-full flex-col justify-between bg-gradient-to-br from-jsd-orange to-[#c96b00] p-8 text-white md:p-10">
+            <div className="flex h-full flex-col justify-between rounded-t-2xl bg-gradient-to-br from-jsd-orange to-[#c96b00] p-8 text-white md:rounded-l-2xl md:rounded-tr-none md:p-10">
               <div className="space-y-6">
                 <BrandLogo textTone="light" imageClassName="h-16 w-16 sm:h-20 sm:w-20" />
                 <div>
@@ -25,7 +26,7 @@ export function NotFoundPage() {
 
             <div className="space-y-6 p-8 md:p-10">
               <p className="eyebrow">JSD Alcochete</p>
-              <h2 className="font-display text-3xl font-bold text-jsd-blue-dark dark:text-white">Voltamos ao caminho certo</h2>
+              <h2 className="font-display text-3xl font-bold text-white">Voltamos ao caminho certo</h2>
               <p className="copy">
                 Continua a navegar pela plataforma institucional, consulta notícias, agenda e informação sobre a estrutura local.
               </p>

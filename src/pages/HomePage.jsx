@@ -5,6 +5,13 @@ import { useApp } from "../context/AppContext";
 import { useDocumentMeta } from "../hooks/useDocumentMeta";
 import { formatDate } from "../services/helpers";
 
+const quickLinks = [
+  { to: "/sobre", label: "Quem Somos", desc: "História e valores" },
+  { to: "/orgaos", label: "Órgãos", desc: "A nossa equipa" },
+  { to: "/eventos", label: "Eventos", desc: "Agenda pública" },
+  { to: "/noticias", label: "Notícias", desc: "Comunicados" }
+];
+
 function getDay(isoString) {
   if (!isoString) return "--";
   const d = new Date(isoString);
@@ -20,7 +27,7 @@ function getMonth(isoString) {
 }
 
 export function HomePage() {
-  const { news, events, stats } = useApp();
+  const { news, events } = useApp();
 
   useDocumentMeta({
     title: "JSD Alcochete | Coragem para Mudar",
@@ -29,113 +36,108 @@ export function HomePage() {
   });
 
   return (
-    <>
+    <div className="bg-[#080401] text-[#fffcf9]">
       <HeroSection />
 
-      {/* Secção Híbrida Lado-a-Lado */}
-      <section className="section-shell mt-16 md:mt-24 mb-16 grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-        
-        {/* Lado Esquerdo: Últimas Notícias */}
-        <div className="flex flex-col h-full bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-jsd-orange/15 shadow-sm">
-          <ScrollReveal className="border-b border-jsd-orange/20 pb-6 mb-8">
-            <h2 className="font-display text-4xl md:text-5xl font-black text-jsd-blue-dark">O que se passa</h2>
-            <p className="mt-4 text-jsd-black/60 text-lg">
-              Acompanha as nossas posições públicas, o trabalho no terreno e as iniciativas diárias.
-            </p>
+      {/* Quick links */}
+      <section className="section-shell pt-10 pb-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {quickLinks.map((item) => (
+            <ScrollReveal key={item.to}>
+              <Link to={item.to} className="panel-hover group block h-full">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-jsd-orange">{item.label}</p>
+                <p className="mt-2 font-display text-lg font-bold text-white group-hover:text-jsd-orange transition">{item.desc}</p>
+                <span className="mt-4 inline-block text-white/30 group-hover:text-jsd-orange transition">&rarr;</span>
+              </Link>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="home-content" className="section-shell pt-6 grid lg:grid-cols-2 gap-8">
+        <div className="panel flex flex-col h-full">
+          <ScrollReveal className="border-b border-white/8 pb-6 mb-6">
+            <span className="eyebrow">Comunicados</span>
+            <h2 className="section-title mt-4">O que defendemos</h2>
+            <p className="copy mt-3">Tomadas de posição, opiniões e comunicados sobre o rumo de Alcochete.</p>
           </ScrollReveal>
-          
+
           {news.length === 0 ? (
-            <div className="py-8 border-b border-black/5">
-              <p className="text-jsd-black/50 text-lg">Sem publicações recentes. Fica atento às próximas novidades!</p>
-            </div>
+            <p className="text-white/40 py-6">Sem publicações recentes. Fica atento!</p>
           ) : (
-            <div className="flex flex-col gap-8 flex-1">
+            <div className="flex flex-col gap-6 flex-1">
               {news.slice(0, 3).map((article) => (
-                <ScrollReveal key={article.id} className="group border-b border-black/5 pb-8 last:border-0 last:pb-0">
-                  <div className="flex items-center gap-4 mb-3">
-                    <span className="text-xs font-bold text-jsd-orange tracking-widest uppercase">
-                      {formatDate(article.publishedAt)}
-                    </span>
-                    <span className="inline-block border border-jsd-orange/30 text-jsd-orange px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                      {article.category}
-                    </span>
+                <ScrollReveal key={article.id} className="group border-b border-white/5 pb-6 last:border-0 last:pb-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-[10px] font-bold text-jsd-orange tracking-widest uppercase">{formatDate(article.publishedAt)}</span>
+                    <span className="rounded-full border border-white/10 px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white/45">{article.category}</span>
                   </div>
                   <Link to={`/noticias/${article.id}`}>
-                    <h3 className="text-2xl font-display font-black text-jsd-black group-hover:text-jsd-orange transition-colors">
-                      {article.title}
-                    </h3>
+                    <h3 className="font-display text-xl font-bold text-white group-hover:text-jsd-orange transition">{article.title}</h3>
                   </Link>
-                  <p className="mt-3 text-jsd-black/75 leading-relaxed text-base md:text-lg line-clamp-3">
-                    {article.excerpt}
-                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55 line-clamp-2">{article.excerpt}</p>
                 </ScrollReveal>
               ))}
             </div>
           )}
-          
-          <ScrollReveal className="mt-8 pt-4">
-            <Link to="/noticias" className="inline-flex font-bold text-jsd-orange hover:text-jsd-blue-dark transition-colors uppercase tracking-widest">
-              Ver todas as mensagens &rarr;
-            </Link>
+
+          <ScrollReveal className="mt-auto pt-6">
+            <Link to="/noticias" className="link-arrow">Ver todas as notícias <span>&rarr;</span></Link>
           </ScrollReveal>
         </div>
 
-        {/* Lado Direito: Agenda/Apelo */}
-        <div className="flex flex-col h-full bg-[#f0ece5] p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-sm">
-          <ScrollReveal className="space-y-6 mb-10">
-             <p className="eyebrow !text-jsd-orange/70">Aparece na sede</p>
-             <h2 className="font-display text-4xl md:text-5xl font-black text-jsd-blue-dark leading-tight">Vem debater connosco.</h2>
-             <p className="text-jsd-black/70 text-lg leading-relaxed">
-                As nossas portas estão abertas a todos os jovens. A política não se faz apenas nas redes sociais, faz-se nas ruas, nos cafés e nas reuniões onde decidimos as respostas aos verdadeiros problemas de Alcochete.
-             </p>
-             <div className="pt-2">
-               <Link to="/eventos" className="btn-primary">A Nossa Agenda</Link>
-             </div>
+        <div className="panel flex flex-col h-full">
+          <ScrollReveal className="border-b border-white/8 pb-6 mb-6">
+            <span className="eyebrow">Debate & Participação</span>
+            <h2 className="section-title mt-4">Vem debater connosco</h2>
+            <p className="copy mt-3">Sessões abertas a todos os jovens. Junta-te à discussão cívica.</p>
           </ScrollReveal>
-          
-          <div className="flex flex-col space-y-4">
+
+          <div className="flex flex-col gap-3 flex-1">
             {events.length === 0 ? (
-               <div className="bg-white rounded-[1.5rem] p-6 text-center shadow-sm">
-                 <p className="text-jsd-black/50 font-medium">Agenda em preparação. Fica atento!</p>
-               </div>
+              <div className="rounded-xl border border-dashed border-white/10 py-10 text-center">
+                <p className="text-white/40">Agenda em preparação. Volta em breve!</p>
+              </div>
             ) : (
               events.slice(0, 3).map((event) => (
-                <ScrollReveal key={event.id} className="bg-white rounded-[1.5rem] p-5 flex items-center gap-5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex flex-col items-center justify-center min-w-[65px] bg-[#f0ece5] rounded-xl p-3">
-                    <span className="text-jsd-orange font-black text-2xl leading-none">{getDay(event.date)}</span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-jsd-black/60 mt-1">{getMonth(event.date)}</span>
+                <ScrollReveal key={event.id} className="panel-hover flex items-center gap-4 !p-4">
+                  <div className="flex flex-col items-center justify-center min-w-[56px] rounded-xl bg-jsd-orange/10 border border-jsd-orange/20 px-3 py-2">
+                    <span className="text-jsd-orange font-black text-lg leading-none">{getDay(event.date)}</span>
+                    <span className="text-[8px] font-bold uppercase tracking-widest text-white/45 mt-0.5">{getMonth(event.date)}</span>
                   </div>
-                  <div className="flex-1 overflow-hidden">
-                    <h3 className="font-display text-xl font-bold text-jsd-blue-dark leading-tight line-clamp-2">{event.title}</h3>
-                    <div className="flex items-center gap-2 mt-2 text-xs font-semibold text-jsd-black/50 whitespace-nowrap overflow-hidden">
-                       <span className="uppercase tracking-wider flex-shrink-0">{event.category}</span>
-                       <span className="flex-shrink-0">•</span>
-                       <span className="truncate">📍 {event.location}</span>
-                    </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display font-bold text-white leading-tight line-clamp-1">{event.title}</h3>
+                    <p className="mt-1 text-xs text-white/45 truncate">
+                      <span className="text-jsd-orange/80 font-semibold uppercase">{event.category}</span>
+                      {" · "}{event.location}
+                    </p>
                   </div>
                 </ScrollReveal>
               ))
             )}
           </div>
+
+          <ScrollReveal className="mt-auto pt-6">
+            <Link to="/eventos" className="link-arrow">Ver agenda completa <span>&rarr;</span></Link>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Call to action em bloco isolado brutalista */}
-      <section className="bg-jsd-blue-dark text-white py-24 md:py-32">
-         <div className="section-shell text-center flex flex-col items-center">
-            <ScrollReveal>
-               <h2 className="font-display text-5xl md:text-7xl font-black mb-6 leading-tight max-w-4xl mx-auto">
-                 Coragem para aceitar o desafio?
-               </h2>
-               <p className="text-xl md:text-2xl text-white/70 mb-12 max-w-2xl mx-auto font-medium">
-                 Dá o primeiro passo e vem juntar-te ao núcleo jovem mais ativo do concelho.
-               </p>
-               <Link to="/junta-te" className="btn-primary inline-flex !bg-jsd-orange !border-jsd-orange !text-white text-lg md:text-xl px-12 py-5 rounded-full shadow-[0_8px_30px_rgb(255,153,0,0.3)] hover:!bg-white hover:!text-jsd-orange hover:shadow-none hover:scale-105 transition-all">
-                 QUERO SER MILITANTE
-               </Link>
-            </ScrollReveal>
-         </div>
+      <section className="relative py-24 md:py-32 overflow-hidden border-t border-white/5">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,153,0,0.1),transparent_60%)]" />
+        <div className="section-shell relative z-10 text-center">
+          <ScrollReveal className="mx-auto max-w-2xl space-y-6">
+            <span className="eyebrow">Junta-te à estrutura</span>
+            <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-tight">
+              Tens coragem para <span className="text-jsd-orange italic">aceitar o desafio</span>?
+            </h2>
+            <p className="copy mx-auto">Dá o primeiro passo e vem apoiar o núcleo juvenil mais ativo do concelho.</p>
+            <Link to="/junta-te" className="btn-primary px-10 py-4 text-xs font-extrabold tracking-widest uppercase">
+              Quero ser militante
+            </Link>
+          </ScrollReveal>
+        </div>
       </section>
-    </>
+    </div>
   );
 }

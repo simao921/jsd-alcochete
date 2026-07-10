@@ -24,20 +24,20 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 border-b-[3px] border-jsd-orange/80 bg-white/85 backdrop-blur-xl dark:border-white/5 dark:bg-jsd-blue-dark/85">
-      <div className="shell-container flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="text-jsd-blue-dark dark:text-white">
-          <BrandLogo imageClassName="h-10 w-10 sm:h-12 sm:w-12 shadow-none" textTone="dark" />
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#080401]/92 backdrop-blur-xl">
+      <div className="shell-container flex h-[4.5rem] items-center justify-between gap-5">
+        <Link to="/" className="min-w-0 max-w-[240px] shrink-0 text-white">
+          <BrandLogo compact textTone="light" />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-2 lg:flex">
           {homeLink && (
             <NavLink
               to={homeLink.to}
               className={({ isActive }) =>
                 cn(
-                  "rounded-full px-4 py-2 text-[13px] font-bold text-jsd-black/60 transition-all hover:bg-black/5 hover:text-jsd-blue-dark dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white",
-                  isActive && "bg-black/5 text-jsd-blue-dark dark:bg-white/10 dark:text-white"
+                  "rounded-full px-3.5 py-1.5 text-[11px] font-bold tracking-widest uppercase text-white/60 transition-all hover:bg-white/5 hover:text-white",
+                  isActive && "bg-white/10 text-white"
                 )
               }
             >
@@ -52,14 +52,14 @@ export function Navbar() {
           >
             <button
               type="button"
-              className="inline-flex cursor-default items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-bold text-jsd-black/60 transition-all hover:bg-black/5 hover:text-jsd-blue-dark dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white"
+              className="inline-flex cursor-default items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-bold tracking-widest uppercase text-white/60 transition-all hover:bg-white/5 hover:text-white"
             >
               Quem Somos
-              <span className={cn("transition-transform duration-300 text-[10px]", isAboutOpen && "rotate-180")}>▼</span>
+              <span className={cn("transition-transform duration-300 text-[8px] text-white/40", isAboutOpen && "rotate-180")}>▼</span>
             </button>
 
             <div className={cn(
-              "absolute left-1/2 top-[calc(100%+0.5rem)] -translate-x-1/2 w-64 overflow-hidden rounded-[1.25rem] border border-black/5 bg-white/95 backdrop-blur-xl shadow-xl transition-all duration-300 origin-top dark:border-white/10 dark:bg-jsd-blue-dark/95",
+              "absolute left-1/2 top-[calc(100%+0.5rem)] -translate-x-1/2 w-64 overflow-hidden border border-white/10 bg-[#0c0600]/95 backdrop-blur-xl shadow-2xl transition-all duration-300 origin-top",
               isAboutOpen ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"
             )}>
               <div className="p-2 space-y-1">
@@ -68,7 +68,7 @@ export function Navbar() {
                     key={item.href}
                     to={item.href}
                     onClick={() => setIsAboutOpen(false)}
-                    className="block rounded-xl px-4 py-3 text-[13px] font-bold text-jsd-black/70 transition-all hover:bg-jsd-light hover:text-jsd-orange hover:translate-x-1 dark:text-white/70 dark:hover:bg-white/5 dark:hover:text-white"
+                    className="block rounded-lg px-4 py-3 text-[12px] font-bold text-white/70 transition-all hover:bg-white/5 hover:text-jsd-orange hover:translate-x-1"
                   >
                     {item.label}
                   </Link>
@@ -83,8 +83,8 @@ export function Navbar() {
               to={item.to}
               className={({ isActive }) =>
                 cn(
-                  "rounded-full px-4 py-2 text-[13px] font-bold text-jsd-black/60 transition-all hover:bg-black/5 hover:text-jsd-blue-dark dark:text-white/60 dark:hover:bg-white/5 dark:hover:text-white",
-                  isActive && "bg-black/5 text-jsd-blue-dark dark:bg-white/10 dark:text-white"
+                  "rounded-full px-3.5 py-1.5 text-[11px] font-bold tracking-widest uppercase text-white/60 transition-all hover:bg-white/5 hover:text-white",
+                  isActive && "bg-white/10 text-white"
                 )
               }
             >
@@ -94,7 +94,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link to="/junta-te" className="btn-primary !h-10 !px-6 !text-[13px] !shadow-none">
+          <Link to="/junta-te" className="inline-flex items-center justify-center rounded-full bg-jsd-orange text-black font-extrabold text-[10px] tracking-widest uppercase h-9 px-5 hover:shadow-[0_0_30px_rgba(255,153,0,0.35)] transition duration-300">
             Junta-te a Nós
           </Link>
         </div>
@@ -102,7 +102,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setIsOpen((current) => !current)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-jsd-blue-dark shadow-sm lg:hidden dark:border-white/10 dark:bg-transparent dark:text-white"
+          className="inline-flex h-10 w-10 items-center justify-center border border-white/10 bg-transparent text-white hover:bg-white/5 shadow-sm lg:hidden"
           aria-label="Abrir menu"
         >
           {isOpen ? "✕" : "☰"}
@@ -110,25 +110,25 @@ export function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="absolute left-0 top-full w-full border-b border-black/5 bg-white/95 backdrop-blur-xl pb-6 pt-4 shadow-xl lg:hidden dark:border-white/5 dark:bg-jsd-blue-dark/95">
+        <div className="absolute left-0 top-full w-full border-b border-white/10 bg-[#0c0600]/95 backdrop-blur-xl pb-6 pt-4 shadow-xl lg:hidden">
           <div className="shell-container flex flex-col gap-2">
             {homeLink && (
               <NavLink
                 to={homeLink.to}
                 className={({ isActive }) =>
                   cn(
-                    "rounded-2xl px-5 py-4 text-sm font-bold transition",
-                    isActive ? "bg-jsd-orange text-white" : "text-jsd-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/5"
+                    "px-5 py-4 text-sm font-bold tracking-wider uppercase transition",
+                    isActive ? "bg-jsd-orange text-black font-black" : "text-white/60 hover:bg-white/5"
                   )
                 }
               >
                 {homeLink.label}
               </NavLink>
             )}
-            <div className="rounded-2xl border border-black/5 bg-black/[0.02] p-2 dark:border-white/5 dark:bg-white/[0.02]">
+            <div className="border border-white/10 bg-white/[0.02] p-2">
               <p className="px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-jsd-orange">Quem Somos</p>
               {aboutLinks.map((item) => (
-                <Link key={item.href} to={item.href} onClick={() => setIsOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-bold text-jsd-black/70 transition hover:bg-white dark:text-white/70 dark:hover:bg-white/10">
+                <Link key={item.href} to={item.href} onClick={() => setIsOpen(false)} className="block px-4 py-3 text-sm font-bold text-white/70 transition hover:bg-white/5">
                   {item.label}
                 </Link>
               ))}
@@ -139,8 +139,8 @@ export function Navbar() {
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    "rounded-2xl px-5 py-4 text-sm font-bold transition",
-                    isActive ? "bg-jsd-orange text-white" : "text-jsd-black/60 hover:bg-black/5 dark:text-white/60 dark:hover:bg-white/5"
+                    "px-5 py-4 text-sm font-bold tracking-wider uppercase transition",
+                    isActive ? "bg-jsd-orange text-black font-black" : "text-white/60 hover:bg-white/5"
                   )
                 }
               >
@@ -148,7 +148,7 @@ export function Navbar() {
               </NavLink>
             ))}
             <div className="mt-4 px-2">
-              <Link to="/junta-te" className="btn-primary w-full shadow-none">
+              <Link to="/junta-te" className="inline-flex items-center justify-center w-full rounded-full bg-jsd-orange text-black font-extrabold text-[12px] tracking-widest uppercase py-4">
                 Junta-te a Nós
               </Link>
             </div>

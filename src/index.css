@@ -6,20 +6,16 @@
 
 @layer base {
   html {
-    font-size: 12px;
+    font-size: 13px;
+    scroll-behavior: smooth;
   }
 
   :root {
-    color-scheme: light;
-  }
-
-  .dark {
     color-scheme: dark;
   }
 
   body {
-    @apply min-h-screen bg-jsd-light font-sans text-jsd-black transition-colors duration-300 dark:bg-jsd-blue-dark dark:text-jsd-white;
-    background-image: linear-gradient(180deg, rgba(255, 248, 239, 0.98) 0%, rgba(245, 245, 245, 1) 100%);
+    @apply min-h-screen bg-[#080401] font-sans text-[#fffcf9] antialiased;
   }
 
   ::selection {
@@ -33,39 +29,55 @@
   }
 
   .surface-panel {
-    @apply rounded-[1.75rem] border border-jsd-orange/10 bg-white shadow-panel dark:border-white/10 dark:bg-white/5;
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] shadow-panel text-white backdrop-blur-sm;
   }
 
   .section-shell {
-    @apply shell-container py-16 md:py-20;
+    @apply shell-container py-14 md:py-20;
   }
 
   .eyebrow {
-    @apply inline-flex items-center rounded-full border border-jsd-orange/25 bg-[#fff4e1] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-jsd-orange;
+    @apply inline-flex items-center rounded-full border border-jsd-orange/25 bg-jsd-orange/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-jsd-orange;
   }
 
   .headline {
-    @apply font-display text-4xl font-bold tracking-tight text-jsd-blue-dark sm:text-5xl lg:text-6xl dark:text-white;
+    @apply font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-bold tracking-tight text-white sm:text-4xl;
   }
 
   .copy {
-    @apply text-base leading-8 text-jsd-black/75 dark:text-white/70;
+    @apply text-[15px] leading-7 text-white/70;
+  }
+
+  .panel {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8 transition-colors duration-300;
+  }
+
+  .panel-hover {
+    @apply panel hover:border-jsd-orange/25 hover:bg-white/[0.05];
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-jsd-orange px-6 py-3 text-sm font-semibold text-jsd-black transition duration-300 hover:-translate-y-0.5 hover:shadow-glow;
+    @apply inline-flex items-center justify-center rounded-full bg-jsd-orange px-6 py-3 text-sm font-bold text-black transition duration-300 hover:shadow-glow hover:brightness-105;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-jsd-orange/20 bg-white px-6 py-3 text-sm font-semibold text-jsd-blue-dark transition duration-300 hover:-translate-y-0.5 hover:bg-[#fff8ef] dark:border-white/15 dark:bg-white/5 dark:text-white;
+    @apply inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:border-jsd-orange/40 hover:bg-white/10;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-jsd-orange transition hover:text-white hover:gap-3;
   }
 
   .chip {
-    @apply rounded-full border border-jsd-orange/15 px-4 py-2 text-sm font-medium text-jsd-blue-dark transition dark:border-white/10 dark:text-white/90;
+    @apply rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-white/75 transition hover:bg-white/5 hover:text-white;
   }
 
   .chip-active {
-    @apply bg-jsd-blue text-white dark:bg-jsd-orange dark:text-jsd-black;
+    @apply border-jsd-orange/40 bg-jsd-orange text-black font-bold shadow-[0_0_24px_rgba(255,153,0,0.2)];
   }
 
   .field {
@@ -73,27 +85,36 @@
   }
 
   .label {
-    @apply text-sm font-semibold text-jsd-blue-dark dark:text-white;
+    @apply text-[10px] font-bold uppercase tracking-widest text-jsd-orange;
   }
 
   .input {
-    @apply w-full rounded-2xl border border-jsd-orange/15 bg-white px-4 py-3 text-sm text-jsd-black outline-none transition focus:border-jsd-orange focus:ring-4 focus:ring-jsd-orange/20 dark:border-white/10 dark:bg-white/5 dark:text-white;
+    @apply w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-jsd-orange focus:ring-4 focus:ring-jsd-orange/10;
   }
 
   .textarea {
     @apply input min-h-32 resize-none;
   }
 
-  .kicker-grid {
-    background-size: 32px 32px;
-    @apply bg-grid-light dark:bg-grid-dark;
+  .divider-orange {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-jsd-orange/40 to-transparent;
   }
 
   .reveal {
-    @apply translate-y-8 opacity-0 transition-all duration-700;
+    @apply translate-y-6 opacity-0 transition-all duration-700 ease-out;
   }
 
   .reveal-visible {
     @apply translate-y-0 opacity-100;
   }
+}
+
+@keyframes scroll-down {
+  0% { transform: translateY(-100%); }
+  80% { transform: translateY(200%); }
+  100% { transform: translateY(200%); }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
 }

@@ -1,34 +1,34 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+import { CinematicBanner } from "./CinematicBanner";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full bg-jsd-orange flex flex-col items-center">
-      {/* Utiliza a imagem anexada, guardada na pasta public como 'banner.jpg' ou 'banner.png' */}
-      <img
-        src="/banner.jpg"
-        alt="Somos a História do Futuro - JSD"
-        className="w-full h-auto max-h-[70vh] object-cover object-top shadow-xl"
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "/banner.png"; // Fallback para .png se o utilizador gravou assim
-        }}
-      />
-      <div className="section-shell py-12 flex flex-col items-center text-center space-y-6">
-        <h1 className="font-display text-4xl mt-4 font-black text-white md:text-5xl max-w-3xl leading-tight">
-          A tua voz conta. Junta-te à geração que faz acontecer.
-        </h1>
-        <p className="text-white/90 text-lg md:text-xl max-w-2xl font-medium">
-          Não deixes que decidam por ti. Aqui tens o espaço e a estrutura para construíres o futuro de Alcochete.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 pt-6">
-          <Link to="/junta-te" className="btn-secondary !bg-white !text-jsd-orange !border-white hover:!bg-[#fff8ef] text-lg px-8 py-4">
+    <CinematicBanner
+      label="JSD Alcochete"
+      titleLines={[
+        { text: "A tua voz conta.", highlight: false },
+        { text: "Junta-te à geração", highlight: false },
+        { text: "que faz acontecer.", highlight: true }
+      ]}
+      description="Não deixes que outros decidam o futuro de Alcochete por ti. Espaço, ideias e equipa para moldares o rumo do nosso concelho."
+      image="/banner.jpg"
+      fallbackImage="/banner.png"
+      scrollTargetId="home-content"
+    >
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+          <Link to="/junta-te" className="btn-primary px-8 py-3.5 text-xs font-extrabold tracking-widest uppercase">
             Quero dar o salto
           </Link>
-          <Link to="/sobre" className="btn-primary !border-white/20 !text-white hover:!bg-white/10 text-lg px-8 py-4">
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+          <Link to="/sobre" className="btn-secondary px-8 py-3.5 text-xs font-extrabold tracking-widest uppercase">
             Descobre quem somos
           </Link>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </CinematicBanner>
   );
 }
